@@ -13,8 +13,8 @@ public class UserTest extends BaseTest {
     public void shouldBeAbleToRegisterToApp() {
         User user = new User();
         driver.get("https://todo.qacart.com/signup");
-        new RegisterPage().register(driver, user);
-        boolean isWelcomeMsgDisplayed = new TodoPage().isWelcomeMsgDisplayed(driver);
+        RegisterPage.getInstance().register(driver, user);
+        boolean isWelcomeMsgDisplayed = TodoPage.getInstance().isWelcomeMsgDisplayed(driver);
         Assert.assertTrue(isWelcomeMsgDisplayed);
     }
 }

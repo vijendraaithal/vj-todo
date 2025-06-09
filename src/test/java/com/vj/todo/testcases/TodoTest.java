@@ -14,24 +14,23 @@ public class TodoTest extends BaseTest {
     public void shouldBeAbleToAddATodo() {
         User user = new User();
         driver.get("https://todo.qacart.com/signup");
-        new RegisterPage().register(driver,user);
-        new TodoPage().clickPlusBtn(driver);
-        new NewTodoPage().enterTodo(driver, "Learn Selenium");
-        new NewTodoPage().clickCreateTodoBtn(driver);
-        String addedTodoText = new TodoPage().getAddedTodoText(driver);
+        RegisterPage.getInstance().register(driver, user);
+        TodoPage.getInstance().clickPlusBtn(driver);
+        NewTodoPage.getInstance().enterTodo(driver, "Learn Selenium");
+        NewTodoPage.getInstance().clickCreateTodoBtn(driver);
+        String addedTodoText = TodoPage.getInstance().getAddedTodoText(driver);
         Assert.assertEquals(addedTodoText, "Learn Selenium");
     }
 
     @Test
-    public void shoudlBeAbleToDeleteAddedTodo() {
+    public void shouldBeAbleToDeleteAddedTodo() {
         User user = new User();
         driver.get("https://todo.qacart.com/signup");
-        new RegisterPage().register(driver,user);
-        new TodoPage().clickPlusBtn(driver);
-        new NewTodoPage().enterTodo(driver, "Learn Selenium");
-        new NewTodoPage().clickCreateTodoBtn(driver);
-        new TodoPage().clickDeleteIcon(driver);
-        boolean isNoTodosTextDisplayed = new TodoPage().isNoTodosTextDisplayed(driver);
+        RegisterPage.getInstance().register(driver, user);
+        TodoPage.getInstance().clickPlusBtn(driver);
+        NewTodoPage.getInstance().enterTodo(driver, "Learn Selenium");
+        NewTodoPage.getInstance().clickCreateTodoBtn(driver);
+        boolean isNoTodosTextDisplayed =TodoPage.getInstance().isNoTodosTextDisplayed(driver);
         Assert.assertTrue(isNoTodosTextDisplayed);
     }
  }
