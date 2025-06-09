@@ -1,5 +1,6 @@
 package com.vj.todo.base;
 
+import com.vj.todo.factory.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -13,9 +14,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().window().maximize();
+        driver = new DriverFactory().initializeDriver();
     }
 
     @AfterMethod
