@@ -1,6 +1,7 @@
 package com.vj.todo.testcases;
 
 import com.github.javafaker.Faker;
+import com.vj.todo.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,13 +10,10 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class TodoTest {
+public class TodoTest extends BaseTest {
 
     @Test
     public void shouldBeAbleToAddATodo() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().window().maximize();
 
         Faker faker = new Faker();
         String firstName = faker.name().firstName();
@@ -37,14 +35,10 @@ public class TodoTest {
         driver.findElement(By.cssSelector("[data-testid='submit-newTask']")).click();
         String addedTodo = driver.findElement(By.cssSelector("[data-testid='todo-item']")).getText();
         Assert.assertEquals(addedTodo, "Learn Selenium");
-        driver.quit();
     }
 
     @Test
     public void shoudlBeAbleToDeleteAddedTodo() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().window().maximize();
 
         Faker faker = new Faker();
         String firstName = faker.name().firstName();
@@ -70,6 +64,5 @@ public class TodoTest {
         driver.findElement(By.cssSelector("[data-testid='delete']")).click();
         boolean isNoTodosTextDisplayed = driver.findElement(By.cssSelector("[data-testid='no-todos']")).isDisplayed();
         Assert.assertTrue(isNoTodosTextDisplayed);
-        driver.quit();
     }
  }

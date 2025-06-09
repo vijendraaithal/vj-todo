@@ -1,6 +1,7 @@
 package com.vj.todo.testcases;
 
 import com.github.javafaker.Faker;
+import com.vj.todo.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,14 +10,10 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class UserTest {
+public class UserTest extends BaseTest {
 
     @Test
     public void shouldBeAbleToRegisterToApp() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().window().maximize();
-
         Faker faker = new Faker();
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
@@ -31,6 +28,5 @@ public class UserTest {
         driver.findElement(By.cssSelector("[data-testid='submit']")).click();
         boolean isWelcomeMsgDisplayed = driver.findElement(By.cssSelector("[data-testid='welcome']")).isDisplayed();
         Assert.assertTrue(isWelcomeMsgDisplayed);
-        driver.quit();
     }
 }
