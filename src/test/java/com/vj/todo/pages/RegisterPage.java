@@ -1,6 +1,7 @@
 package com.vj.todo.pages;
 
 import com.vj.todo.model.User;
+import com.vj.todo.utils.ConfigUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -24,7 +25,7 @@ public class RegisterPage {
     }
 
     public void load(WebDriver driver) {
-        driver.get("https://todo.qacart.com/signup");
+        driver.get(ConfigUtils.getInstance().getBaseUrl() + "/signup");
     }
 
     public void register(WebDriver driver, User user) {
