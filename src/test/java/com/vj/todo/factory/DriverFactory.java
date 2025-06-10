@@ -13,7 +13,7 @@ public class DriverFactory {
     public WebDriver initializeDriver() {
         WebDriver driver;
         String browser = System.getProperty("browser", "CHROME");
-        switch (browser) {
+        switch (browser.toUpperCase()) {
             case "CHROME" -> driver = new ChromeDriver();
             case "FF" ->  driver = new FirefoxDriver();
             case "SAFARI" ->  driver = new SafariDriver();

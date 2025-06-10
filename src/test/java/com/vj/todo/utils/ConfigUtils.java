@@ -24,7 +24,12 @@ public class ConfigUtils {
     private Properties readProp() {
         InputStream inputStream;
         try {
-            inputStream = new FileInputStream("src/test/resources/local.properties");
+            String evn = System.getProperty("env", "PRODUCTION");
+            switch (evn.toUpperCase()) {
+                case "PRODUCTION" -> inputStream = new FileInputStream("src/test/resources/production.properties");
+                case "LOCAL" -> inputStream = new FileInputStream("src/test/resources/local.properties");
+                default -> throw new RuntimeException("Env not supported");
+            }
             properties = new Properties();
             properties.load(inputStream);
             System.out.println(properties.getProperty("URL"));
@@ -39,9 +44,3 @@ public class ConfigUtils {
     }
 
 }
-
-/*
-public static void main(String[] args) throws IOException {
-
-    }
- */
