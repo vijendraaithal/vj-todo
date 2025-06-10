@@ -3,6 +3,7 @@ package com.vj.todo.apis;
 import com.vj.todo.model.User;
 import com.vj.todo.utils.ConfigUtils;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
@@ -11,6 +12,7 @@ public class UserApi {
 
         User user = new User();
 
+        Response response =
         given()
             .baseUri(ConfigUtils.getInstance().getBaseUrl())
             .contentType(ContentType.JSON)
@@ -18,6 +20,12 @@ public class UserApi {
         .when()
             .post("/api/v1/users/register")
         .then()
-            .log().all();
+            .extract().response();
+
+        String access_token = response.path("access_token");
+        String firstName = response.path("firstName");
+        System.out.println(access_token);
+        System.out.println(firstName);
+
     }
 }
