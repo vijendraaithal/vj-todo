@@ -1,8 +1,11 @@
 package com.vj.todo.pages;
 
+import com.vj.todo.apis.UserApi;
 import com.vj.todo.model.User;
 import com.vj.todo.utils.ConfigUtils;
+import io.restassured.response.Response;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
 public class RegisterPage {
@@ -35,5 +38,21 @@ public class RegisterPage {
         driver.findElement(passwordInp).sendKeys(user.getPassword());
         driver.findElement(confirmPasswordInp).sendKeys(user.getPassword());
         driver.findElement(submitBtn).click();
+    }
+
+    public void registerUsingApi(WebDriver driver, User user) {
+        Response res = UserApi.getInstance().register(user);
+        String access_token = res.path("access_token");
+        String userID = res.path("userID");
+        String firstName = res.path("firstName");
+
+        Cookie accessTokenCookie = new Cookie("access_token", access_token);
+        Cookie userIDCookie = new Cookie("userID", userID);
+        Cookie firstNameCookie = new Cookie("firstName", firstName);
+
+        driver.manage().addCookie(accessTokenCookie);
+        driver.manage().addCookie(userIDCookie);
+        driver.manage().addCookie(firstNameCookie);
+        RegisterPage.getInstance().load(driver);
     }
 }

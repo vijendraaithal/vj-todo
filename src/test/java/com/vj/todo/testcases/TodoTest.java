@@ -14,7 +14,7 @@ public class TodoTest extends BaseTest {
     public void shouldBeAbleToAddATodo() {
         User user = new User();
         RegisterPage.getInstance().load(driver);
-        RegisterPage.getInstance().register(driver, user);
+        RegisterPage.getInstance().registerUsingApi(driver, user);
         TodoPage.getInstance().clickPlusBtn(driver);
         NewTodoPage.getInstance().enterTodo(driver, "Learn Selenium");
         NewTodoPage.getInstance().clickCreateTodoBtn(driver);
@@ -26,7 +26,7 @@ public class TodoTest extends BaseTest {
     public void shouldBeAbleToDeleteAddedTodo() {
         User user = new User();
         RegisterPage.getInstance().load(driver);
-        RegisterPage.getInstance().register(driver, user);
+        RegisterPage.getInstance().registerUsingApi(driver, user);
         TodoPage.getInstance().clickPlusBtn(driver);
         NewTodoPage.getInstance().enterTodo(driver, "Learn Selenium");
         NewTodoPage.getInstance().clickCreateTodoBtn(driver);
