@@ -1,6 +1,7 @@
 package com.vj.todo.apis;
 
 import com.vj.todo.model.User;
+import com.vj.todo.utils.ConfigUtils;
 import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
@@ -11,7 +12,7 @@ public class UserApi {
         User user = new User();
 
         given()
-            .baseUri("https://todo.qacart.com")
+            .baseUri(ConfigUtils.getInstance().getBaseUrl())
             .contentType(ContentType.JSON)
             .body(user)
         .when()
