@@ -45,10 +45,12 @@ public class RegisterPage {
         String access_token = res.path("access_token");
         String userID = res.path("userID");
         String firstName = res.path("firstName");
+        user.setAccessToken(access_token);
 
         Cookie accessTokenCookie = new Cookie("access_token", access_token);
         Cookie userIDCookie = new Cookie("userID", userID);
         Cookie firstNameCookie = new Cookie("firstName", firstName);
+
 
         driver.manage().addCookie(accessTokenCookie);
         driver.manage().addCookie(userIDCookie);

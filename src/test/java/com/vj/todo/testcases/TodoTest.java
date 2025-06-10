@@ -15,9 +15,9 @@ public class TodoTest extends BaseTest {
         User user = new User();
         RegisterPage.getInstance().load(driver);
         RegisterPage.getInstance().registerUsingApi(driver, user);
+        RegisterPage.getInstance().load(driver);
         TodoPage.getInstance().clickPlusBtn(driver);
-        NewTodoPage.getInstance().enterTodo(driver, "Learn Selenium");
-        NewTodoPage.getInstance().clickCreateTodoBtn(driver);
+        NewTodoPage.getInstance().addTodo(driver, "Learn Selenium");
         String addedTodoText = TodoPage.getInstance().getAddedTodoText(driver);
         Assert.assertEquals(addedTodoText, "Learn Selenium");
     }
@@ -27,9 +27,9 @@ public class TodoTest extends BaseTest {
         User user = new User();
         RegisterPage.getInstance().load(driver);
         RegisterPage.getInstance().registerUsingApi(driver, user);
-        TodoPage.getInstance().clickPlusBtn(driver);
-        NewTodoPage.getInstance().enterTodo(driver, "Learn Selenium");
-        NewTodoPage.getInstance().clickCreateTodoBtn(driver);
+        NewTodoPage.getInstance().addTodoUsingApi(user, "Learn Selenium");
+        RegisterPage.getInstance().load(driver);
+        TodoPage.getInstance().clickDeleteIcon(driver);
         boolean isNoTodosTextDisplayed =TodoPage.getInstance().isNoTodosTextDisplayed(driver);
         Assert.assertTrue(isNoTodosTextDisplayed);
     }

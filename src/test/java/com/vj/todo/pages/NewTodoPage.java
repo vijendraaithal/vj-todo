@@ -1,5 +1,7 @@
 package com.vj.todo.pages;
 
+import com.vj.todo.apis.TodoApi;
+import com.vj.todo.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -22,5 +24,14 @@ public class NewTodoPage {
 
     public void clickCreateTodoBtn(WebDriver driver) {
         driver.findElement(createTodoBtn).click();
+    }
+
+    public void addTodo(WebDriver driver, String todoText) {
+        enterTodo(driver, todoText);
+        clickCreateTodoBtn(driver);
+    }
+
+    public void addTodoUsingApi(User user, String todoText) {
+        TodoApi.getInstance().addTodo(user, todoText);
     }
 }
