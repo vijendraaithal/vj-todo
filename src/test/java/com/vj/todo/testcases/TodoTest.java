@@ -1,75 +1,36 @@
 package com.vj.todo.testcases;
 
-import com.github.javafaker.Faker;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import com.vj.todo.base.BaseTest;
+import com.vj.todo.model.User;
+import com.vj.todo.pages.NewTodoPage;
+import com.vj.todo.pages.RegisterPage;
+import com.vj.todo.pages.TodoPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
+public class TodoTest extends BaseTest {
 
-public class TodoTest {
-
-    @Test
-    public void shouldBeAbleToAddATodo() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().window().maximize();
-
-        Faker faker = new Faker();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String email = firstName + "." + lastName + faker.number().numberBetween(100, 500) + "@email.com";
-
-        driver.get("https://todo.qacart.com/signup");
-        driver.findElement(By.cssSelector("[data-testid='first-name']")).sendKeys(firstName);
-        driver.findElement(By.cssSelector("[data-testid='last-name']")).sendKeys(lastName);
-        driver.findElement(By.cssSelector("[data-testid='email']")).sendKeys(email);
-        driver.findElement(By.cssSelector("[data-testid='password']")).sendKeys("Test123!");
-        driver.findElement(By.cssSelector("[data-testid='confirm-password']")).sendKeys("Test123!");
-        driver.findElement(By.cssSelector("[data-testid='submit']")).click();
-        boolean isWelcomeMsgDisplayed = driver.findElement(By.cssSelector("[data-testid='welcome']")).isDisplayed();
-        Assert.assertTrue(isWelcomeMsgDisplayed);
-
-        driver.findElement(By.cssSelector("[aria-label='delete']")).click();
-        driver.findElement(By.cssSelector("[data-testid='new-todo']")).sendKeys("Learn Selenium");
-        driver.findElement(By.cssSelector("[data-testid='submit-newTask']")).click();
-        String addedTodo = driver.findElement(By.cssSelector("[data-testid='todo-item']")).getText();
-        Assert.assertEquals(addedTodo, "Learn Selenium");
-        driver.quit();
+    @Test(description = "Should Be Able To Add A Todo")
+    public void shouldBeAbleToAddATodo() throws InterruptedException {
+        User user = new User();
+        RegisterPage.getInstance().load(tlDriver.get());
+        RegisterPage.getInstance().registerUsingApi(tlDriver.get(), user);
+        RegisterPage.getInstance().load(tlDriver.get());
+        TodoPage.getInstance().clickPlusBtn(tlDriver.get());
+        NewTodoPage.getInstance().addTodo(tlDriver.get(), "Learn Selenium");
+        String addedTodoText = TodoPage.getInstance().getAddedTodoText(tlDriver.get());
+        Assert.assertEquals(addedTodoText, "Learn Selenium");
     }
 
-    @Test
-    public void shoudlBeAbleToDeleteAddedTodo() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().window().maximize();
-
-        Faker faker = new Faker();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String email = firstName + "." + lastName + faker.number().numberBetween(100, 500) + "@email.com";
-
-        driver.get("https://todo.qacart.com/signup");
-        driver.findElement(By.cssSelector("[data-testid='first-name']")).sendKeys(firstName);
-        driver.findElement(By.cssSelector("[data-testid='last-name']")).sendKeys(lastName);
-        driver.findElement(By.cssSelector("[data-testid='email']")).sendKeys(email);
-        driver.findElement(By.cssSelector("[data-testid='password']")).sendKeys("Test123!");
-        driver.findElement(By.cssSelector("[data-testid='confirm-password']")).sendKeys("Test123!");
-        driver.findElement(By.cssSelector("[data-testid='submit']")).click();
-        boolean isWelcomeMsgDisplayed = driver.findElement(By.cssSelector("[data-testid='welcome']")).isDisplayed();
-        Assert.assertTrue(isWelcomeMsgDisplayed);
-
-        driver.findElement(By.cssSelector("[aria-label='delete']")).click();
-        driver.findElement(By.cssSelector("[data-testid='new-todo']")).sendKeys("Learn Selenium");
-        driver.findElement(By.cssSelector("[data-testid='submit-newTask']")).click();
-        String addedTodo = driver.findElement(By.cssSelector("[data-testid='todo-item']")).getText();
-        Assert.assertEquals(addedTodo, "Learn Selenium");
-
-        driver.findElement(By.cssSelector("[data-testid='delete']")).click();
-        boolean isNoTodosTextDisplayed = driver.findElement(By.cssSelector("[data-testid='no-todos']")).isDisplayed();
+    @Test(description = "Should Be Able To Delete Added Todo")
+    public void shouldBeAbleToDeleteAddedTodo() throws InterruptedException {
+        User user = new User();
+        RegisterPage.getInstance().load(tlDriver.get());
+        RegisterPage.getInstance().registerUsingApi(tlDriver.get(), user);
+        NewTodoPage.getInstance().addTodoUsingApi(user, "Learn Selenium");
+        RegisterPage.getInstance().load(tlDriver.get());
+        TodoPage.getInstance().clickDeleteIcon(tlDriver.get());
+        boolean isNoTodosTextDisplayed =TodoPage.getInstance().isNoTodosTextDisplayed(tlDriver.get());
         Assert.assertTrue(isNoTodosTextDisplayed);
-        driver.quit();
     }
  }
