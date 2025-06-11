@@ -10,15 +10,16 @@ import java.time.Duration;
 
 public class BaseTest {
 
-    protected WebDriver driver;
+    protected ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
     @BeforeMethod
     public void setUp() {
-        driver = new DriverFactory().initializeDriver();
+        WebDriver driver = new DriverFactory().initializeDriver();
+        tlDriver.set(driver);
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        tlDriver.get().quit();
     }
 }

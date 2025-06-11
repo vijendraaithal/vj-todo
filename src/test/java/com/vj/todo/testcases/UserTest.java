@@ -9,12 +9,12 @@ import org.testng.annotations.Test;
 
 public class UserTest extends BaseTest {
 
-    @Test
+    @Test(priority = 2)
     public void shouldBeAbleToRegisterToApp() {
         User user = new User();
-        RegisterPage.getInstance().load(driver);
-        RegisterPage.getInstance().register(driver, user);
-        boolean isWelcomeMsgDisplayed = TodoPage.getInstance().isWelcomeMsgDisplayed(driver);
+        RegisterPage.getInstance().load(tlDriver.get());
+        RegisterPage.getInstance().register(tlDriver.get(), user);
+        boolean isWelcomeMsgDisplayed = TodoPage.getInstance().isWelcomeMsgDisplayed(tlDriver.get());
         Assert.assertTrue(isWelcomeMsgDisplayed);
     }
 }
