@@ -15,7 +15,9 @@ public class User {
     public User() {
         Faker faker = new Faker();
         firstName = faker.name().firstName();
+        if (firstName.length() < 3) firstName += "aa";
         lastName = faker.name().lastName();
+        if (lastName.length() < 3) lastName += "oo";
         email = firstName + "." + lastName + faker.number().numberBetween(100, 500) + "@email.com";
         password = "Test123!";
     }
