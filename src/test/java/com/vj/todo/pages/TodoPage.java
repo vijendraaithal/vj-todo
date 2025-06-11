@@ -21,23 +21,28 @@ public class TodoPage {
         return  todoPage;
     }
 
+    @Step("Check if Welcome Message is displayed")
     public boolean isWelcomeMsgDisplayed(WebDriver driver) {
         return driver.findElement(welcomeMsg).isDisplayed();
     }
 
+    @Step("Click on Plus Button")
     public void clickPlusBtn(WebDriver driver) {
         driver.findElement(plusBtn).click();
         System.out.println();
     }
 
+    @Step("Click on delete icon")
     public void clickDeleteIcon(WebDriver driver) {
         driver.findElement(deleteIcon).click();
     }
 
+    @Step("Check if no todos message is displayed")
     public boolean isNoTodosTextDisplayed(WebDriver driver) {
         return driver.findElement(noTodosText).isDisplayed();
     }
 
+    @Step("Get the added todo text")
     public String getAddedTodoText(WebDriver driver) {
         return driver.findElement(addedTodoItem).getText();
     }

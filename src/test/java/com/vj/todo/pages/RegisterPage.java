@@ -28,11 +28,12 @@ public class RegisterPage {
         return registerPage;
     }
 
+    @Step("Visit the singup page")
     public void load(WebDriver driver) {
         driver.get(ConfigUtils.getInstance().getBaseUrl() + "/signup");
     }
 
-
+    @Step("Register using the UI")
     public void register(WebDriver driver, User user) {
         driver.findElement(firstNameInp).sendKeys(user.getFirstName());
         driver.findElement(lastNameInp).sendKeys(user.getLastName());
@@ -42,6 +43,7 @@ public class RegisterPage {
         driver.findElement(submitBtn).click();
     }
 
+    @Step("Register using the API")
     public void registerUsingApi(WebDriver driver, User user) {
         Response res = UserApi.getInstance().register(user);
         String access_token = res.path("access_token");
