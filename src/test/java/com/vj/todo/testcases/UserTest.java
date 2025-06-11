@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class UserTest extends BaseTest {
 
-    @Test(priority = 2)
+    @Test(description = "Should Be Able To Register To App")
     public void shouldBeAbleToRegisterToApp() {
         User user = new User();
         RegisterPage.getInstance().load(tlDriver.get());

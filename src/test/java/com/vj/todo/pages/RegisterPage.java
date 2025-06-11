@@ -3,6 +3,7 @@ package com.vj.todo.pages;
 import com.vj.todo.apis.UserApi;
 import com.vj.todo.model.User;
 import com.vj.todo.utils.ConfigUtils;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
@@ -31,6 +32,7 @@ public class RegisterPage {
         driver.get(ConfigUtils.getInstance().getBaseUrl() + "/signup");
     }
 
+
     public void register(WebDriver driver, User user) {
         driver.findElement(firstNameInp).sendKeys(user.getFirstName());
         driver.findElement(lastNameInp).sendKeys(user.getLastName());
@@ -50,7 +52,6 @@ public class RegisterPage {
         Cookie accessTokenCookie = new Cookie("access_token", access_token);
         Cookie userIDCookie = new Cookie("userID", userID);
         Cookie firstNameCookie = new Cookie("firstName", firstName);
-
 
         driver.manage().addCookie(accessTokenCookie);
         driver.manage().addCookie(userIDCookie);

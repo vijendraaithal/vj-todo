@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class TodoTest extends BaseTest {
 
-    @Test(priority = 0)
+    @Test(description = "Should Be Able To Add A Todo")
     public void shouldBeAbleToAddATodo() throws InterruptedException {
         User user = new User();
         RegisterPage.getInstance().load(tlDriver.get());
@@ -22,7 +22,7 @@ public class TodoTest extends BaseTest {
         Assert.assertEquals(addedTodoText, "Learn Selenium");
     }
 
-    @Test(priority = 1)
+    @Test(description = "Should Be Able To Delete Added Todo")
     public void shouldBeAbleToDeleteAddedTodo() throws InterruptedException {
         User user = new User();
         RegisterPage.getInstance().load(tlDriver.get());
